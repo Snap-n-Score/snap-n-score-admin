@@ -1,16 +1,66 @@
-# snap_n_score_admin
+# Snap n' Score
 
-A new Flutter project.
+Snap n' Score is a Flutter-based project designed to manage attendance using QR codes. It consists of an admin web app and a student Android app.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- QR code-based attendance marking
+- Dynamic matching between students and professors
+- Scalable database schema with ORM concepts
+- Secure and time-limited QR codes to prevent proxy attendance
 
-A few resources to get you started if this is your first Flutter project:
+## Technology Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Frontend:** Flutter
+- **Backend:** Supabase
+- **Database:** PostgreSQL (managed by Supabase)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+### Admin Web App
+<img width="1379" alt="Screenshot 2024-07-13 at 9 10 04 AM" src="https://github.com/user-attachments/assets/1cd8b37a-683c-482c-b238-17d8f3bd31a2">
+<img width="1376" alt="Screenshot 2024-07-13 at 9 10 19 AM" src="https://github.com/user-attachments/assets/fe156edd-3829-4496-853d-7e56493314e1">
+<img width="1375" alt="Screenshot 2024-07-13 at 9 25 58 AM" src="https://github.com/user-attachments/assets/950bd575-66e2-4403-a2ff-6a2b288ee708">
+
+
+### Student Android App
+![Student Android App](path/to/student_android_app_image.png)
+
+## Demo
+
+Here are some demo videos showcasing the project:
+
+### Admin Web App Demo
+
+### Student Android App Demo
+
+
+## Setup Instructions
+
+1. Clone the repository
+    ```bash
+    git clone https://github.com/your-username/snap-n-score.git
+    ```
+2. Navigate to the project directory
+    ```bash
+    cd snap-n-score
+    ```
+3. Install dependencies
+    ```bash
+    flutter pub get
+    ```
+4. Run the app
+    ```bash
+    flutter run
+    ```
+
+## Usage
+
+1. Professor logs into the web app and generates a QR code.
+2. Students use the Android app to scan the QR code.
+3. The system checks the validity of the QR code and marks attendance accordingly.
+
+## Contributing
+
+Feel free to submit issues and pull requests.
+
