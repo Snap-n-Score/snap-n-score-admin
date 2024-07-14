@@ -1,10 +1,11 @@
-import 'dart:math';
-import 'dart:ui';
+// ignore_for_file: file_names
 
 import 'package:custom_qr_generator/custom_qr_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:snap_n_score_admin/loginPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:math';
+import 'dart:ui';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

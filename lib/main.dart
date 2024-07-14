@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snap_n_score_admin/ScreenChoice.dart';
-import 'package:snap_n_score_admin/homePage.dart';
+import 'package:snap_n_score_admin/HomePage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final theme = ThemeData(
