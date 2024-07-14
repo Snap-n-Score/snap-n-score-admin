@@ -87,7 +87,7 @@ class _SignupGlassmorphismState extends State<SignupGlassmorphism> {
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
-                      label: Text('Password'),
+                      label: const Text('Password'),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -149,11 +149,11 @@ class _SignupGlassmorphismState extends State<SignupGlassmorphism> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HomePage(),
+                                        builder: (context) => const HomePage(),
                                       ));
                                 }).onError((error, stackTrace) {
                                   sm.showSnackBar(SnackBar(
-                                      content: Text("Signed up ${error}")));
+                                      content: Text("Signed up $error")));
                                 });
                               },
             child: const Row(

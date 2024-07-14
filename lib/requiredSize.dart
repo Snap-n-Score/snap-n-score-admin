@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SizeReqScreen extends StatefulWidget {
   const SizeReqScreen({super.key});
@@ -9,7 +8,7 @@ class SizeReqScreen extends StatefulWidget {
 }
 
 class _SizeReqScreenState extends State<SizeReqScreen> {
-  var screenSize=Size(0, 0);
+  var screenSize=const Size(0, 0);
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -20,7 +19,7 @@ class _SizeReqScreenState extends State<SizeReqScreen> {
       body: Stack(
         children: [
           Container(
-            decoration:  BoxDecoration(
+            decoration:  const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Colors.black,

@@ -8,12 +8,11 @@ class ScreenChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      print("Max height : ${constraints.maxHeight}, Max width: ${constraints.maxWidth}");
       if(constraints.maxHeight>850 && constraints.maxWidth>1140){
-        return loginPage();
+        return const loginPage();
       }
       else{
-        return SizeReqScreen();
+        return const SizeReqScreen();
       }
     });
   }

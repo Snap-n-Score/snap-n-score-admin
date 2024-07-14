@@ -41,21 +41,21 @@ class _HomePageState extends State<HomePage> {
         'faculty_id': faculty_id[0]['faculty_id'],
         'active': 1
       });
-      sm.showSnackBar(SnackBar(content: Text("Qr Generated")));
+      sm.showSnackBar(const SnackBar(content: Text("Qr Generated")));
       print("qr generated");
 
-      Future.delayed(Duration(seconds: 15), () async {
+      Future.delayed(const Duration(seconds: 15), () async {
         await Supabase.instance.client.from('keys_table').update(
             {'active': 0}).eq('key_value', storedRandomNumber.toString());
         print("Updated");
       });
     } else {
       sm.showSnackBar(SnackBar(
-        content: Text("Qr Already generated"),
+        content: const Text("Qr Already generated"),
         backgroundColor: Colors.redAccent[100],
       ));
       //  not optimatal => rather try to disable button or freeze state for 15 seconds
-      Future.delayed(Duration(seconds: 15), () async {
+      Future.delayed(const Duration(seconds: 15), () async {
         await Supabase.instance.client.from('keys_table').update(
             {'active': 0}).eq('key_value', storedRandomNumber.toString());
         print("Updated");
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Snap n' Score"),
+        title: const Text("Snap n' Score"),
         centerTitle: false,
         actions: [
           Text(
@@ -82,11 +82,11 @@ class _HomePageState extends State<HomePage> {
                   return Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => loginPage(),
+                        builder: (context) => const loginPage(),
                       ));
                 });
               },
-              child: Text("Logout"),
+              child: const Text("Logout"),
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.red[100])),
             ),
