@@ -18,7 +18,6 @@ class _loginPageState extends State<loginPage> {
   Size screenSize=const Size(0, 0);
   @override
   Widget build(BuildContext context) {
-
     setState(() {
        screenSize = MediaQuery.of(context).size;
     });

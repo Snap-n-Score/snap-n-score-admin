@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snap_n_score_admin/ScreenChoice.dart';
 import 'package:snap_n_score_admin/HomePage.dart';
+import 'package:snap_n_score_admin/loginPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final theme = ThemeData(
@@ -30,7 +31,7 @@ class MyApp extends StatefulWidget {
 final supabase = Supabase.instance.client;
 
 class _MyAppState extends State<MyApp> {
-  Widget _currentScreen = const ScreenChoice();
+  Widget _currentScreen = ScreenChoice();
   @override
   void initState() {
     // TODO: implement initState

@@ -8,18 +8,18 @@ class SizeReqScreen extends StatefulWidget {
 }
 
 class _SizeReqScreenState extends State<SizeReqScreen> {
-  var screenSize=const Size(0, 0);
+  var screenSize = const Size(0, 0);
   @override
   Widget build(BuildContext context) {
     setState(() {
-      screenSize=MediaQuery.of(context).size;
+      screenSize = MediaQuery.of(context).size;
     });
-    
+
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration:  const BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Colors.black,
@@ -29,10 +29,24 @@ class _SizeReqScreenState extends State<SizeReqScreen> {
               ),
             ),
           ),
-           Center(
-            child:  Text(
-              "This Website Works best on large displays",
-              style: TextStyle(color: Colors.red.shade100,fontSize: screenSize.width*0.04),
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "This Website Works best on large displays",
+                  style: TextStyle(
+                      color: Colors.red.shade100,
+                      fontSize: screenSize.width * 0.04),
+                ),
+                Text(
+                  "Tip: use in full screen mode",
+                  style: TextStyle(
+                      color: Colors.red.shade100,
+                      fontSize: screenSize.width * 0.02),
+                ),
+              ],
             ),
           )
         ],

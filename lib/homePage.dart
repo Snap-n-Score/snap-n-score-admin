@@ -64,10 +64,12 @@ class _HomePageState extends State<HomePage> {
     }
     setState(() {});
   }
-
+  var screenSize = Size(0, 0);
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    setState(() {
+      screenSize = MediaQuery.of(context).size;
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text("Snap n' Score"),
@@ -89,7 +91,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text("Logout"),
               style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.red[100])),
+                  backgroundColor: WidgetStatePropertyAll(Colors.red[100])),
             ),
           )
         ],
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     width: screenSize.width * 0.3,
-                    height: screenSize.height * 0.6,
+                    height: screenSize.height * 0.65,
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(10),

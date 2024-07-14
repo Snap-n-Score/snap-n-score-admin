@@ -37,7 +37,7 @@ class _SignupGlassmorphismState extends State<SignupGlassmorphism> {
     return Container(
       padding: const EdgeInsets.all(20),
       width: screenSize.width * 0.3,
-      height: screenSize.height * 0.6,
+      height: screenSize.height * 0.65,
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10)),

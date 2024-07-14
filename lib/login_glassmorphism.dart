@@ -20,7 +20,7 @@ class _GlassmorphismState extends State<LoginGlassmorphism> {
     return Container(
       padding: const EdgeInsets.all(20),
       width: screenSize.width * 0.3,
-      height: screenSize.height * 0.5,
+      height: screenSize.height * 0.55,
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10)),
@@ -74,7 +74,7 @@ class _GlassmorphismState extends State<LoginGlassmorphism> {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(
+                  fixedSize: WidgetStatePropertyAll(
                       Size(screenSize.width * 0.2, screenSize.height * 0.05))),
                                       onPressed: () async {
                                         final sm = ScaffoldMessenger.of(context);
