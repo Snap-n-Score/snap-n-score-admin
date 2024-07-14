@@ -13,10 +13,17 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
+
   bool islogin = true;
+  Size screenSize=Size(0, 0);
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+
+    setState(() {
+       screenSize = MediaQuery.of(context).size;
+    });
+    
+    
     return Scaffold(
       appBar: AppBar(
         title: InkWell(
@@ -28,6 +35,7 @@ class _loginPageState extends State<loginPage> {
         centerTitle: false,
         leadingWidth: 20,
         actions: [
+          Text("Height: ${screenSize.height}, Width: ${screenSize.width}"),
           IconButton(
             onPressed: () async {
               const url = 'https://github.com/rakshitkapoor/Snap-n-Score';
@@ -74,14 +82,12 @@ class _loginPageState extends State<loginPage> {
           child: Container(
             color: Colors.white.withOpacity(0.05),
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    islogin ? LoginGlassmorphism() : SignupGlassmorphism()
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  islogin ? LoginGlassmorphism() : SignupGlassmorphism()
+                ],
               ),
             ),
           ),

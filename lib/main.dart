@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:snap_n_score_admin/ScreenChoice.dart';
 import 'package:snap_n_score_admin/homePage.dart';
 import 'package:snap_n_score_admin/loginPage.dart';
+import 'package:snap_n_score_admin/requiredSize.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
     seedColor: Colors.teal.shade900,
-    
   ),
 );
-void main() async{
+void main() async {
   await Supabase.initialize(
     url: 'https://dpbchvnpfkjvkjagaqnh.supabase.co',
     anonKey:
@@ -28,10 +29,10 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-final supabase=Supabase.instance.client;
+final supabase = Supabase.instance.client;
 
 class _MyAppState extends State<MyApp> {
-  Widget _currentScreen=loginPage();
+  Widget _currentScreen = ScreenChoice();
   @override
   void initState() {
     // TODO: implement initState
@@ -39,13 +40,12 @@ class _MyAppState extends State<MyApp> {
     _redirectUser();
   }
 
-  void _redirectUser(){
-    final user=supabase.auth.currentSession;
-    if(user!=null){
+  void _redirectUser() {
+    final user = supabase.auth.currentSession;
+    if (user != null) {
       setState(() {
-        _currentScreen=HomePage();
+        _currentScreen = HomePage();
       });
-      
     }
   }
   @override
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      home: _currentScreen
+      home: _currentScreen,
     );
   }
 }
