@@ -24,86 +24,82 @@ class _GlassmorphismState extends State<LoginGlassmorphism> {
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10)),
-      child: Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text("Login", style: TextStyle(fontSize: 36)),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            const Text(
-              "Enter your details here !!",
-              style: TextStyle(fontSize: 21),
-            ),
-            SizedBox(
-              height: screenSize.height * 0.05,
-            ),
-            Form(
-              key: _formkey,
-              child: SingleChildScrollView(
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          label: const Text('Email'),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text("Login", style: TextStyle(fontSize: 36)),
+          SizedBox(
+            height: screenSize.height * 0.01,
+          ),
+          const Text(
+            "Enter your details here !!",
+            style: TextStyle(fontSize: 21),
+          ),
+          SizedBox(
+            height: screenSize.height * 0.05,
+          ),
+          Form(
+            key: _formkey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      label: const Text('Email'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      SizedBox(height: screenSize.height * 0.05),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          label: const Text('Password'),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: screenSize.height * 0.05),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  fixedSize: WidgetStatePropertyAll(
-                      Size(screenSize.width * 0.2, screenSize.height * 0.05))),
-                                      onPressed: () async {
-                                        final sm = ScaffoldMessenger.of(context);
-                                        await supabase.auth
-                                            .signInWithPassword(
-                                                password:
-                                                    _passwordController.text,
-                                                email: _emailController.text)
-                                            .then((value) {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: ((context) =>
-                                                      HomePage())));
-                                        }).onError((error, stackTrace) {
-                                          sm.showSnackBar(
-                                              SnackBar(content: Text("$error")));
-                                        });
-                                      },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children:  [
-                  Text("Login "),
-                  Icon(Icons.arrow_right_alt_sharp),
+                  SizedBox(height: screenSize.height * 0.05),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      label: const Text('Password'),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenSize.height * 0.05),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          ElevatedButton(
+            style: ButtonStyle(
+                fixedSize: WidgetStatePropertyAll(
+                    Size(screenSize.width * 0.2, screenSize.height * 0.05))),
+                                    onPressed: () async {
+                                      final sm = ScaffoldMessenger.of(context);
+                                      await supabase.auth
+                                          .signInWithPassword(
+                                              password:
+                                                  _passwordController.text,
+                                              email: _emailController.text)
+                                          .then((value) {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    HomePage())));
+                                      }).onError((error, stackTrace) {
+                                        sm.showSnackBar(
+                                            SnackBar(content: Text("$error")));
+                                      });
+                                    },
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children:  [
+                Text("Login "),
+                Icon(Icons.arrow_right_alt_sharp),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
