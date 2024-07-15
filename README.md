@@ -1,7 +1,8 @@
 # Snap n' Score
 
 Snap n' Score is a Flutter-based project designed to manage attendance using QR codes. It consists of an admin web app and a student Android app.
-
+## website 
+https://snapnscore-web.vercel.app/
 ## Features
 
 - QR code-based attendance marking
