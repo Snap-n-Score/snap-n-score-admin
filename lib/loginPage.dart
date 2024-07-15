@@ -13,23 +13,21 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
-
   bool islogin = true;
-  Size screenSize=const Size(0, 0);
+  Size screenSize = const Size(0, 0);
   @override
   Widget build(BuildContext context) {
     setState(() {
-       screenSize = MediaQuery.of(context).size;
+      screenSize = MediaQuery.of(context).size;
     });
-    
-  
+
     return Scaffold(
       appBar: AppBar(
         title: InkWell(
             onTap: () => setState(() {
                   islogin = true;
                 }),
-                overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+            overlayColor: const MaterialStatePropertyAll(Colors.transparent),
             child: const Text("Snap n' Score")),
         centerTitle: false,
         leadingWidth: 20,
@@ -44,9 +42,7 @@ class _loginPageState extends State<loginPage> {
                 throw 'could not launch $url';
               }
             },
-            icon: const ImageIcon(
-              AssetImage('github-mark-white.png'),
-            ),
+            icon:( Image.asset("assets/images/github.png",height: 25,width: 25,)),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -76,7 +72,11 @@ class _loginPageState extends State<loginPage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color.fromRGBO(1, 84, 98, 1),Color.fromRGBO(2, 80, 92, 1),Color.fromRGBO(6, 16, 15, 1)],
+            colors: [
+              Color.fromRGBO(1, 84, 98, 1),
+              Color.fromRGBO(2, 80, 92, 1),
+              Color.fromRGBO(6, 16, 15, 1)
+            ],
           ),
         ),
         child: BackdropFilter(
@@ -88,7 +88,9 @@ class _loginPageState extends State<loginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  islogin ? const LoginGlassmorphism() : const SignupGlassmorphism()
+                  islogin
+                      ? const LoginGlassmorphism()
+                      : const SignupGlassmorphism()
                 ],
               ),
             ),
