@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
     }
     setState(() {});
   }
+
   var screenSize = Size(0, 0);
   @override
   Widget build(BuildContext context) {
@@ -100,8 +101,15 @@ class _HomePageState extends State<HomePage> {
         width: screenSize.width,
         height: screenSize.height,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("bg_image2.jpg"), fit: BoxFit.cover),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromRGBO(1, 84, 98, 1),
+              Color.fromRGBO(2, 80, 92, 1),
+              Color.fromRGBO(6, 16, 15, 1)
+            ],
+          ),
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),

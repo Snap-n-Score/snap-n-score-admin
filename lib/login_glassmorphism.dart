@@ -56,7 +56,7 @@ class _GlassmorphismState extends State<LoginGlassmorphism> {
                   SizedBox(height: screenSize.height * 0.05),
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: false,
+                    obscureText: true,
                     decoration: InputDecoration(
                       label: const Text('Password'),
                       border: OutlineInputBorder(
