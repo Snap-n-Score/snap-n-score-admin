@@ -2,6 +2,7 @@
 
 import 'package:custom_qr_generator/custom_qr_generator.dart';
 import 'package:flutter/material.dart';
+import 'package:snap_n_score_admin/lecture_hall.dart';
 import 'package:snap_n_score_admin/loginPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
@@ -15,11 +16,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<LectureHall> lectureHalls = [
+    LectureHall(name: '102NLH', latitude: 40.712776, longitude: -74.005974),
+    LectureHall(name: '002ALH', latitude: 34.052235, longitude: -118.243683),
+    LectureHall(name: '103NLH', latitude: 37.774929, longitude: -122.419418),
+  ];
   final supabase = Supabase.instance.client;
+  bool _firstTime = true;
+  String? selectedLectureHall;
   String _randomNumbers = '';
   String? storedRandomNumber; //to store the random number generated
 
   void _generateRandomNumbers() async {
+    if (_firstTime) {
+      _firstTime = false;
+    }
     final sm = ScaffoldMessenger.of(context);
     final faculty_id = supabase.auth.currentUser?.userMetadata?['faculty_id'];
     print("Id ${faculty_id[0]['faculty_id']}");
@@ -130,28 +141,55 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomPaint(
-                          painter: QrPainter(
-                            data: _randomNumbers,
-                            options: const QrOptions(
-                              shapes: QrShapes(
-                                darkPixel: QrPixelShapeRoundCorners(
-                                    cornerFraction: 0.05),
-                                frame: QrFrameShapeCircle(),
-                                ball: QrBallShapeCircle(),
+                        _firstTime
+                            // entering locations in which lecture will be held
+                            ? Column(
+                                children: [
+                                  const Text(
+                                      "Select the location of the lecture hall"),
+                                  DropdownButton<String>(
+                                    value: selectedLectureHall,
+                                    hint: const Text("Select a location"),
+                                    items: lectureHalls
+                                        .map((e) => DropdownMenuItem(
+                                              child: Text(e.name),
+                                              value: e.name,
+                                            ))
+                                        .toList(),
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedLectureHall = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )
+                            : CustomPaint(
+                                painter: QrPainter(
+                                  data: _randomNumbers,
+                                  options: const QrOptions(
+                                    shapes: QrShapes(
+                                      darkPixel: QrPixelShapeRoundCorners(
+                                          cornerFraction: 0.05),
+                                      frame: QrFrameShapeCircle(),
+                                      ball: QrBallShapeCircle(),
+                                    ),
+                                    colors: QrColors(
+                                      dark: QrColorSolid(Colors.black),
+                                      light: QrColorSolid(Colors.black),
+                                    ),
+                                  ),
+                                ),
+                                size: const Size(300, 300),
                               ),
-                              colors: QrColors(
-                                dark: QrColorSolid(Colors.black),
-                                light: QrColorSolid(Colors.black),
-                              ),
-                            ),
-                          ),
-                          size: const Size(300, 300),
-                        ),
                         SizedBox(height: screenSize.height * 0.07),
+                        Text("Location: $selectedLectureHall"),
+                        SizedBox(height: screenSize.height * 0.02),
                         FilledButton(
                           onPressed: _generateRandomNumbers,
-                          child: const Text("Generate"),
+                          child: _firstTime
+                              ? Text("Generate")
+                              : Text("Regenerate"),
                         ),
                       ],
                     ),
