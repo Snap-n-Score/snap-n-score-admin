@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:snap_n_score_admin/HomePage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -31,9 +32,11 @@ class _GlassmorphismState extends State<LoginGlassmorphism> {
           SizedBox(
             height: screenSize.height * 0.01,
           ),
-          const Text(
-            "Enter your details here !!",
-            style: TextStyle(fontSize: 21),
+          Text(
+            "Enter your details here",
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(fontSize: 21),
+            ),
           ),
           SizedBox(
             height: screenSize.height * 0.05,

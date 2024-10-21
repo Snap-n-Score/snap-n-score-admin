@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final List<LectureHall> lectureHalls = [
     LectureHall(name: '102NLH', latitude: 40.712776, longitude: -74.005974),
     LectureHall(name: '002ALH', latitude: 34.052235, longitude: -118.243683),
-    LectureHall(name: '103NLH', latitude: 37.774929, longitude: -122.419418),
+    LectureHall(name: '101PLH', latitude: 37.774929, longitude: -122.419418),
   ];
   final supabase = Supabase.instance.client;
   bool _firstTime = true;
