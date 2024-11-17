@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:custom_qr_generator/custom_qr_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:snap_n_score_admin/loginPage.dart';
@@ -17,52 +19,89 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final supabase = Supabase.instance.client;
   String _randomNumbers = '';
-  String? storedRandomNumber; //to store the random number generated
+  String? storedRandomNumber;
+  Timer? _timer; // Add this timer variable
+  bool isGenerating = false; // Add this flag to track generation state
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Clean up timer when widget is disposed
+    super.dispose();
+  }
 
   void _generateRandomNumbers() async {
     final sm = ScaffoldMessenger.of(context);
     final faculty_id = supabase.auth.currentUser?.userMetadata?['faculty_id'];
-    print("Id ${faculty_id[0]['faculty_id']}");
-    final _random = Random();
-    _randomNumbers =
-        (_random.nextInt(900000) + 1000000).toString(); // 7-digit string
-    storedRandomNumber = _randomNumbers; // store the generated random number
 
-    // checking if teacher has already generated the qr or not
-    final exists = await supabase
-        .from('keys_table')
-        .select('active')
-        .eq('faculty_id', faculty_id[0]['faculty_id']);
-
-    if (exists.isEmpty || exists[0]['active'] == 0) {
-      await supabase.from('keys_table').insert({
-        'key_value': storedRandomNumber,
-        'public_enkey': 123,
-        'private_enkey': 251,
-        'faculty_id': faculty_id[0]['faculty_id'],
-        'active': 1
-      });
-      sm.showSnackBar(const SnackBar(content: Text("Qr Generated")));
-      print("qr generated");
-
-      Future.delayed(const Duration(seconds: 15), () async {
-        await Supabase.instance.client.from('keys_table').update(
-            {'active': 0}).eq('key_value', storedRandomNumber.toString());
-        print("Updated");
-      });
-    } else {
-      sm.showSnackBar(SnackBar(
-        content: const Text("Qr Already generated"),
-        backgroundColor: Colors.redAccent[100],
+    if (faculty_id == null || faculty_id.isEmpty) {
+      sm.showSnackBar(const SnackBar(
+        content: Text("Faculty ID not found"),
+        backgroundColor: Colors.red,
       ));
-      //  not optimatal => rather try to disable button or freeze state for 15 seconds
-      Future.delayed(const Duration(seconds: 15), () async {
-        await Supabase.instance.client.from('keys_table').update(
-            {'active': 0}).eq('key_value', storedRandomNumber.toString());
-        print("Updated");
-      });
+      return;
     }
+
+    // Toggle generation state
+    setState(() {
+      isGenerating = !isGenerating;
+    });
+
+    if (isGenerating) {
+      // Start generating QR codes
+      _startQRGeneration(faculty_id[0]['faculty_id'].toString(), sm);
+    } else {
+      // Stop generating QR codes
+      _stopQRGeneration();
+    }
+  }
+
+  void _startQRGeneration(String facultyId, ScaffoldMessengerState sm) async {
+    // Initial generation
+    await _generateNewQR(facultyId, sm);
+
+    // Set up periodic generation
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+      await _generateNewQR(facultyId, sm);
+    });
+  }
+
+  void _stopQRGeneration() {
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  Future<void> _generateNewQR(
+      String facultyId, ScaffoldMessengerState sm) async {
+    // Deactivate previous QR if exists
+    if (storedRandomNumber != null) {
+      await supabase
+          .from('keys_table')
+          .update({'active': 0}).eq('key_value', storedRandomNumber.toString());
+    }
+
+    // Generate new random number
+    randomNumber();
+
+    // Insert new QR
+    final response =await supabase.from('keys_table').insert({
+      'key_value': storedRandomNumber.toString(),
+      'public_enkey': 123,
+      'private_enkey': 251,
+      'faculty_id': facultyId,
+      'active': 1
+    }).select('key_id');
+    
+
+    sm.showSnackBar(const SnackBar(content: Text("New QR Generated")));
+    print("New QR generated: $storedRandomNumber");
+
     setState(() {});
+  }
+
+  void randomNumber() {
+    final _random = Random();
+    _randomNumbers = (_random.nextInt(900000) + 1000000).toString();
+    storedRandomNumber = _randomNumbers;
   }
 
   var screenSize = Size(0, 0);
@@ -92,7 +131,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text("Logout"),
               style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.red[100])),
+                  backgroundColor: MaterialStatePropertyAll(Colors.red[100])),
             ),
           )
         ],
@@ -151,8 +190,15 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(height: screenSize.height * 0.07),
                         FilledButton(
                           onPressed: _generateRandomNumbers,
-                          child: const Text("Generate"),
-                        ),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              isGenerating ? Colors.red[100] : null,
+                            ),
+                          ),
+                          child: Text(isGenerating
+                              ? "Stop Generation"
+                              : "Start Generation"),
+                        )
                       ],
                     ),
                   ),
